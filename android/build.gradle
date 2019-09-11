@@ -16,6 +16,7 @@ rootProject.allprojects {
     repositories {
         google()
         jcenter()
+        maven { url 'https://dl.bintray.com/umsdk/release' }
     }
 }
 
@@ -32,8 +33,9 @@ android {
         disable 'InvalidPackage'
     }
     dependencies {
-        api 'com.umeng.sdk:common:latest.integration'
-        api 'com.umeng.sdk:analytics:latest.integration'
+
+        api 'com.umeng.umsdk:analytics:8.0.0'
+        api 'com.umeng.umsdk:common:2.0.0'
         compileOnly files('libs/flutter.jar')
     }
 }

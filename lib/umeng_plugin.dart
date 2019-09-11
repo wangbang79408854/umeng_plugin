@@ -41,9 +41,9 @@ class UmengPlugin {
     await _channel.invokeMethod("event", args);
   }
 
-  static Future<Null> eventMap(String eventId, Map<String, String> map) async {
+  static Future<Null> eventMap(String eventId, Map<String,String> mapEvent) async {
     Map<String, dynamic> args = {"eventId": eventId};
-    if (map != null) args["map"] = map;
+    if (mapEvent != null) args["map"] = mapEvent;
 
     await _channel.invokeMethod("eventMap", args);
   }

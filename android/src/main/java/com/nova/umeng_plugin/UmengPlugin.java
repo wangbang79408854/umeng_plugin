@@ -1,10 +1,17 @@
 package com.nova.umeng_plugin;
 
 import android.app.Activity;
+import android.util.Log;
+import android.widget.Toast;
+
 
 import com.umeng.analytics.MobclickAgent;
 import com.umeng.commonsdk.UMConfigure;
 
+import org.json.JSONObject;
+
+import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Map;
 
 import io.flutter.plugin.common.MethodCall;
@@ -35,6 +42,8 @@ public class UmengPlugin implements MethodCallHandler {
         } else if (call.method.equals("event")) {
             event(call, result);
         } else if (call.method.equals("eventMap")) {
+
+
             eventMap(call, result);
         } else if (call.method.equals("beginLogPageView")) {
             beginLogPageView(call, result);
@@ -66,7 +75,6 @@ public class UmengPlugin implements MethodCallHandler {
             encrypt = (boolean) call.argument("encrypt");
         }
         UMConfigure.setEncryptEnabled(encrypt);
-        MobclickAgent.openActivityDurationTrack(false);
         result.success(true);
 
     }
@@ -82,11 +90,15 @@ public class UmengPlugin implements MethodCallHandler {
     }
 
     private void eventMap(MethodCall call, Result result) {
-        if (call.hasArgument("map")) {
-            Map<String, String> map = call.argument("map");
-            MobclickAgent.onEvent(activity, (String) call.argument("eventId"), map);
+        try {
+            if (call.hasArgument("map")) {
+                HashMap<String, String> jsonMap = call.argument("map");
+                MobclickAgent.onEvent(activity, (String) call.argument("eventId"), jsonMap);
+            }
+            result.success(true);
+        } catch (Exception e) {
+            e.printStackTrace();
         }
-        result.success(true);
 
     }
 
