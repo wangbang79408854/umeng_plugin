@@ -41,6 +41,13 @@ class UmengPlugin {
     await _channel.invokeMethod("event", args);
   }
 
+  static Future<Null> eventMap(String eventId, Map<String, String> map) async {
+    Map<String, dynamic> args = {"eventId": eventId};
+    if (map != null) args["map"] = map;
+
+    await _channel.invokeMethod("eventMap", args);
+  }
+
   ///统计页面时间-开始
   static Future<Null> beginLogPageView(String pageName) async {
     await _channel.invokeMethod("beginLogPageView", {"pageName": pageName});
